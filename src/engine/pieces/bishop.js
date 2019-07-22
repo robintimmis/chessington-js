@@ -10,7 +10,7 @@ export default class Bishop extends Piece {
         const current_location = board.findPiece(this)
         let moves = new Array();
 
-        return move.diagonal_move(current_location, moves);
+        return move.diagonal_move(current_location, moves, 8);
 
 
         // for (let i = 0; i < 8; i++) {

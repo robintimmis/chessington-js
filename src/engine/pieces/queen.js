@@ -10,8 +10,8 @@ export default class Queen extends Piece {
         const current_location = board.findPiece(this)
         let moves = new Array();
 
-        moves = move.lateral_move(current_location, moves)
-        moves = move.diagonal_move(current_location,moves)
+        moves = move.lateral_move(current_location, moves, 8, board)
+        moves = move.diagonal_move(current_location,moves, 8)
 
         return moves
 

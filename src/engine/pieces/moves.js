@@ -1,5 +1,9 @@
+import Square from '../square';
+import Piece from './piece';
+import Player from '../player';
 
-exports.diagonal_move = function(current_location, moves){
+
+exports.diagonal_move = function(current_location, moves, limit){
     let move_row = current_location.row;
     let move_col = current_location.col;
 
@@ -50,7 +54,7 @@ exports.diagonal_move = function(current_location, moves){
     //     }
     // }
 
-    for (let i = 1; i < 8; i++) {
+    for (let i = 1; i < limit; i++) {
         moves.push({row : move_row + i, col : move_col + i});
         moves.push({row : move_row - i, col : move_col + i});
         moves.push({row : move_row + i, col : move_col - i});
@@ -62,20 +66,69 @@ exports.diagonal_move = function(current_location, moves){
 };
 
 
-
-
-exports.lateral_move = function(current_location, moves){
-    for (let i = 0; i < 8; i++) {
-        if (!(i === current_location.col)) {
-            moves.push({row: current_location.row, col: i});
+exports.lateral_move = function(current_location, moves, limit, board){
+    for (let i = 1; i < limit; i++) {
+        let squre_move = new Square(current_location.row, current_location.col + i)
+        if (squre_move.col < 8 && squre_move.row < 8 && squre_move.col >= 0 && squre_move.row >=0){
+            if (board.getPiece(squre_move) == null) {
+                moves.push({row: squre_move.row , col: squre_move.col});
+            }
+            else {
+                break
+            }
+        }
+        else {
+            break;
         }
     }
-    for (let j = 0; j < 8; j++) {
-        if (!(j === current_location.row)) {
-            moves.push({row: j, col: current_location.col});
+
+    
+    
+    for (let i = 1; i < limit; i++) {
+        let squre_move = new Square(current_location.row, current_location.col - i)
+        if (squre_move.col < 8 && squre_move.row < 8 && squre_move.col >= 0 && squre_move.row >=0){
+            if (board.getPiece(squre_move) == null){
+                moves.push({row: squre_move.row , col: squre_move.col});
+            }
+            else {
+                break
+            }
+        }
+        else {
+            break;
         }
     }
-    return moves;
+    for (let i = 1; i < limit; i++) {
+        let squre_move = new Square(current_location.row + i, current_location.col)
+        if (squre_move.col < 8 && squre_move.row < 8 && squre_move.col >= 0 && squre_move.row >=0){
+            if (board.getPiece(squre_move) == null){
+                moves.push({row: squre_move.row , col: squre_move.col});
+            }
+            else {
+                break
+            }
+        }
+        else {
+            break;
+        }
+    }
+    for (let i = 1; i < limit; i++) {
+        let squre_move = new Square(current_location.row - i, current_location.col)
+        if (squre_move.col < 8 && squre_move.row < 8 && squre_move.col >= 0 && squre_move.row >=0){
+            if (board.getPiece(squre_move) == null){
+                moves.push({row: squre_move.row , col: squre_move.col});
+            }
+            else {
+                break
+            }
+        }
+        else {
+            break;
+        }
+    }
+    
+    
+    return moves
 };
 
 exports.knight_move = function(current_location, moves){
@@ -95,21 +148,6 @@ exports.knight_move = function(current_location, moves){
     return checkOnBoard(moves);
 };
 
-exports.king_move = function(current_location, moves) {
-    let location_row = current_location.row;
-    let location_col = current_location.col;
-
-    moves.push({row: location_row + 1, col: location_col});
-    moves.push({row: location_row + 1, col: location_col + 1});
-    moves.push({row: location_row, col: location_col + 1});
-    moves.push({row: location_row - 1, col: location_col + 1});
-    moves.push({row: location_row - 1, col: location_col});
-    moves.push({row: location_row - 1, col: location_col - 1});
-    moves.push({row: location_row, col: location_col - 1});
-    moves.push({row: location_row + 1, col: location_col - 1});
-
-    return checkOnBoard(moves);
-};
 
 function checkOnBoard(moves) {
     const good_moves = new Array();
@@ -124,3 +162,7 @@ function checkOnBoard(moves) {
     }
     return good_moves;
 }
+
+// function checkIfBoardFree (moves) {
+
+
