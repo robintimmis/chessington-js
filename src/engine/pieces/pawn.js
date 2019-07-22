@@ -1,5 +1,6 @@
 import Piece from './piece';
 import Player from '../player';
+import Square from '../square';
 
 export default class Pawn extends Piece {
     constructor(player) {
@@ -9,18 +10,32 @@ export default class Pawn extends Piece {
 
     getAvailableMoves(board) {
         const current_location = board.findPiece(this)
+        const moves = new Array()
+        
         if (this.player === Player.WHITE) {
-            const moves = new Array({ row: current_location.row + 1, col: current_location.col });
-            if (current_location.row === 1){
-                moves.push({row: current_location.row + 2, col: current_location.col } );
+            let new_square = new Square(current_location.row + 1, current_location.col)
+            if (board.getPiece(new_square) == null) {
+                moves.push({ row: new_square.row , col: new_square.col })
+                if (current_location.row === 1){
+                    let new_square2 = new Square(current_location.row + 2, current_location.col)
+                    if (board.getPiece(new_square2) == null) {
+                        moves.push({ row: new_square2.row , col: new_square2.col })
+                    }
+                }
             }
-            return moves;
+
         } else if (this.player === Player.BLACK) {
-            const moves = new Array({ row: current_location.row - 1, col: current_location.col });
-            if (current_location.row === 6){
-                moves.push({row: current_location.row - 2, col: current_location.col});
+            let new_square = new Square(current_location.row - 1, current_location.col)
+            if (board.getPiece(new_square) == null) {
+                moves.push({ row: new_square.row , col: new_square.col })
+                if (current_location.row === 6){
+                    let new_square2 = new Square(current_location.row - 2, current_location.col)
+                    if (board.getPiece(new_square2) == null) {
+                        moves.push({ row: new_square2.row , col: new_square2.col })
+                    }
+                }  
             }
-            return moves;
         }
+        return moves;
     }
 }

@@ -82,7 +82,11 @@ exports.knight_move = function(current_location, moves){
     let location_row = current_location.row;
     let location_col = current_location.col;
 
+    // location = [location_row, location_col]
+    // move = [2,1];
 
+
+    // placesCanMove.push(location + move)
     moves.push({row: location_row + 2, col: location_col + 1}, {row: location_row + 1, col: location_col + 2});
     moves.push({row: location_row - 2, col: location_col + 1}, {row: location_row - 1, col: location_col + 2});
     moves.push({row: location_row + 2, col: location_col - 1}, {row: location_row + 1, col: location_col - 2});
