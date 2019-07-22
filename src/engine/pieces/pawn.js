@@ -6,12 +6,21 @@ export default class Pawn extends Piece {
         super(player);
     }
 
+
     getAvailableMoves(board) {
+        const current_location = board.findPiece(this)
         if (this.player === Player.WHITE) {
-            return new Array({ row: 1, col: 0 });
+            const moves = new Array({ row: current_location.row + 1, col: current_location.col });
+            if (current_location.row === 1){
+                moves.push({row: current_location.row + 2, col: current_location.col } );
+            }
+            return moves;
         } else if (this.player === Player.BLACK) {
-            return new Array({ row: 6, col: 7 });
+            const moves = new Array({ row: current_location.row - 1, col: current_location.col });
+            if (current_location.row === 6){
+                moves.push({row: current_location.row - 2, col: current_location.col});
+            }
+            return moves;
         }
-        ;
     }
 }
