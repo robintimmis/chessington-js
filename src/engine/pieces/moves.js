@@ -91,6 +91,21 @@ exports.knight_move = function(current_location, moves){
     return checkOnBoard(moves);
 };
 
+exports.king_move = function(current_location, moves) {
+    let location_row = current_location.row;
+    let location_col = current_location.col;
+
+    moves.push({row: location_row + 1, col: location_col});
+    moves.push({row: location_row + 1, col: location_col + 1});
+    moves.push({row: location_row, col: location_col + 1});
+    moves.push({row: location_row - 1, col: location_col + 1});
+    moves.push({row: location_row - 1, col: location_col});
+    moves.push({row: location_row - 1, col: location_col - 1});
+    moves.push({row: location_row, col: location_col - 1});
+    moves.push({row: location_row + 1, col: location_col - 1});
+
+    return checkOnBoard(moves);
+};
 
 function checkOnBoard(moves) {
     const good_moves = new Array();
