@@ -3,9 +3,11 @@ import Piece from './piece';
 import Player from '../player';
 
 
-exports.diagonal_move = function(current_location, moves, limit){
-    let move_row = current_location.row;
-    let move_col = current_location.col;
+exports.diagonal_move = function(current_location, limit){
+    const move_row = current_location.row;
+    const move_col = current_location.col;
+
+    const moves = new Array();
 
     // while (true) {
     //     move_row += 1;
@@ -60,13 +62,18 @@ exports.diagonal_move = function(current_location, moves, limit){
         moves.push({row : move_row + i, col : move_col - i});
         moves.push({row : move_row - i, col : move_col - i});
     }
-
     return checkOnBoard(moves);
 
 };
 
+//move = [1,0];
 
-exports.lateral_move = function(current_location, moves, limit, board){
+// class Direction {
+//     constructor()
+// }
+
+exports.lateral_move = function(current_location, limit, board){
+    const moves = new Array();
     for (let i = 1; i < limit; i++) {
         let squre_move = new Square(current_location.row, current_location.col + i)
         if (squre_move.col < 8 && squre_move.row < 8 && squre_move.col >= 0 && squre_move.row >=0){
@@ -150,19 +157,8 @@ exports.knight_move = function(current_location, moves){
 
 
 function checkOnBoard(moves) {
-    const good_moves = new Array();
-
-    for (let i = 0; i < moves.length; i++) {
-        let move_row = moves[i].row;
-        let move_col = moves[i].col;
-
-        if  (!(move_row > 7 || move_row < 0 || move_col > 7 || move_col < 0)) {
-            good_moves.push(moves[i]);
-        }
-    }
-    return good_moves;
+    return moves.filter(move => (move.row < 8 && move.row >= 0 && move.col < 8 && move.col >= 0));
 }
 
 // function checkIfBoardFree (moves) {
-
 

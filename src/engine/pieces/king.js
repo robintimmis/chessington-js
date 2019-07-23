@@ -8,12 +8,9 @@ export default class King extends Piece {
 
     getAvailableMoves(board) {
         const current_location = board.findPiece(this)
-        let moves = new Array();
 
-        moves = move.lateral_move(current_location, moves, 2, board)
-        moves = move.diagonal_move(current_location,moves, 2)
-
-        return moves
+        const moves = move.lateral_move(current_location, 2, board)
+        return moves.concat(move.diagonal_move(current_location, 2))
 
     }
 }

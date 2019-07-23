@@ -8,9 +8,7 @@ export default class Rook extends Piece {
 
     getAvailableMoves(board) {
         const current_location = board.findPiece(this)
-        let moves = new Array();
-
-        return move.lateral_move(current_location, moves, 8, board)
+        return move.lateral_move(current_location, 8, board);
 
         // for (let i = 0; i < 8; i++) {
         //     if (!(i === current_location.col)) {
